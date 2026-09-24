@@ -1,40 +1,43 @@
 # Model Card: Boston House Price Predictor
 
-## Model Summary
+## Summary
 
-- Task: Regression (predict median house value)
-- Algorithm: `RandomForestRegressor` inside a preprocessing pipeline
-- Input Features: 13 base variables + 2 engineered interaction features
-- Target: `MEDV`
+| | |
+|---|---|
+| Task | Regression: median home value (`MEDV`, $1000s) |
+| Model | `StandardScaler` + `RandomForestRegressor` (500 trees, max depth 14, min 2 samples per leaf) |
+| Inputs | 13 base features + 2 interaction features (`RM_LSTAT`, `RM_AGE`) |
+| Training data | `processed_housing_data.csv`, 490 rows |
+| Evaluation | 20% random hold-out, `random_state=42` |
 
-## Intended Use
+## Performance
 
-- Educational demonstrations of end-to-end machine-learning workflows
-- Portfolio project showcasing training, evaluation, and deployment
+| Metric | Hold-out value |
+|---|---|
+| R² | 0.870 |
+| RMSE | 2.58 |
+| MAE | 1.92 |
 
-## Out of Scope
+The training script rewrites `models/metrics.json` on every run.
 
-- Real-world mortgage underwriting decisions
-- Risk-sensitive decisions without domain governance
+## Intended use
 
-## Data
+Learning and demonstration of a complete regression workflow: analysis, feature engineering,
+a reproducible training script and a web app.
 
-- Source file: `processed_housing_data.csv`
-- Rows: approximately 500
-- Feature engineering:
-  - `RM_LSTAT = RM * LSTAT`
-  - `RM_AGE = RM * AGE`
+## Out of scope
 
-## Evaluation
+Property valuation, mortgage underwriting, insurance pricing or any decision about real people.
 
-Latest metrics are written to `models/metrics.json` after each training run.
+## Data preparation
+
+- 16 records capped at `MEDV = 50.0` removed.
+- Log and Yeo-Johnson transforms applied to skewed features in the notebook.
+- Interaction features: `RM_LSTAT = RM x LSTAT`, `RM_AGE = RM x AGE`.
 
 ## Limitations
 
-- Dataset is relatively small and historic.
-- Model quality is sensitive to train/test split.
-- Predictions should be interpreted as approximate estimates.
-
-## Ethical Considerations
-
-The original Boston dataset is known to contain sensitive and outdated socio-economic signals. This project should be used for learning and portfolio demonstration, not for production housing policy decisions.
+- Small, historic dataset (1970s census tracts); results do not transfer to today's market.
+- A single random split; metrics move by a few points with a different seed.
+- Some variables in the original dataset, notably `B`, encode race-based information and are
+  ethically problematic. They are kept only to stay comparable with the standard benchmark.

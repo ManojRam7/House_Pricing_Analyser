@@ -36,7 +36,7 @@ st.markdown(
     """
     <div class="hero">
       <h2 style="margin:0;">Boston House Price Predictor</h2>
-      <p style="margin:0.4rem 0 0 0;">Portfolio-grade inference app built on a reproducible sklearn training pipeline.</p>
+      <p style="margin:0.4rem 0 0 0;">Estimate the median value of a Boston home from 13 neighbourhood and property features.</p>
     </div>
     """,
     unsafe_allow_html=True,

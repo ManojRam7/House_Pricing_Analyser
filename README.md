@@ -34,8 +34,10 @@ from 3.22 to 2.89 on the same split.
    two interaction features: `RM_LSTAT = RM x LSTAT` and `RM_AGE = RM x AGE`.
 4. **Model**: `StandardScaler` + `RandomForestRegressor` in one scikit-learn pipeline, trained and
    saved by `scripts/train_model.py`, which also writes the metrics file.
-5. **App**: `streamlit_app.py` collects the 13 inputs, builds the interaction features and returns
-   an estimated price. If the model file is missing, the app can run the training script.
+5. **App**: `streamlit_app.py` collects the 13 raw inputs, applies the same log and Yeo-Johnson
+   transforms as the notebook (fitted parameters are stored in `config.py`), builds the interaction
+   features and returns an estimated price. A unit test checks that raw rows from the original
+   dataset land exactly on the processed training values.
 
 ## Run locally
 
@@ -44,6 +46,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 python scripts/train_model.py      # trains, saves models/model_pipeline.joblib and metrics.json
 streamlit run streamlit_app.py
+python tests/test_features.py      # or: pytest -q
 ```
 
 ## Project structure
@@ -55,12 +58,13 @@ scripts/train_model.py            training entry point
 src/boston_house_price_predictor/
     config.py                     paths and feature lists
     data.py                       loading and schema validation
-    features.py                   interaction features
+    features.py                   input transforms and interaction features
     modeling.py                   scikit-learn pipeline
     train.py                      train, evaluate, save
     inference.py                  load the model and predict
 models/                           saved pipeline and metrics
 streamlit_app.py                  web app
+tests/                            input-transform test
 MODEL_CARD.md                     intended use and limitations
 ```
 

@@ -34,6 +34,7 @@ Property valuation, mortgage underwriting, insurance pricing or any decision abo
 - 16 records capped at `MEDV = 50.0` removed.
 - Log and Yeo-Johnson transforms applied to skewed features in the notebook.
 - Interaction features: `RM_LSTAT = RM x LSTAT`, `RM_AGE = RM x AGE`.
+- At prediction time the app applies the same transforms to raw inputs (`features.transform_raw_features`).
 
 ## Limitations
 

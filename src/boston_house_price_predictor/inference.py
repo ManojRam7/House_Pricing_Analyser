@@ -7,7 +7,7 @@ import joblib
 import pandas as pd
 
 from .config import BASE_FEATURE_COLUMNS, FEATURE_COLUMNS, MODEL_PATH
-from .features import add_engineered_features
+from .features import add_engineered_features, transform_raw_features
 
 
 class MissingArtifactError(FileNotFoundError):
@@ -23,11 +23,13 @@ def load_model(model_path: Path = MODEL_PATH):
 
 
 def predict_price(inputs: dict[str, Any], model_path: Path = MODEL_PATH) -> float:
+    """Predict MEDV ($1000s) from the 13 raw Boston housing features."""
     missing = [col for col in BASE_FEATURE_COLUMNS if col not in inputs]
     if missing:
         raise ValueError(f"Missing required input fields: {', '.join(missing)}")
 
     input_df = pd.DataFrame([inputs], columns=BASE_FEATURE_COLUMNS)
+    input_df = transform_raw_features(input_df)   # raw values -> training scale
     input_df = add_engineered_features(input_df)
     features = input_df[FEATURE_COLUMNS]
 

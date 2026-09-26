@@ -15,7 +15,7 @@ from boston_house_price_predictor.config import MODEL_PATH
 from boston_house_price_predictor.inference import MissingArtifactError, predict_price
 
 
-st.set_page_config(page_title="Boston House Price Predictor", layout="wide")
+st.set_page_config(page_title="House Pricing Analyser", layout="wide")
 
 st.markdown(
     """
@@ -35,7 +35,7 @@ st.markdown(
 st.markdown(
     """
     <div class="hero">
-      <h2 style="margin:0;">Boston House Price Predictor</h2>
+      <h2 style="margin:0;">House Pricing Analyser</h2>
       <p style="margin:0.4rem 0 0 0;">Estimate the median value of a Boston home from 13 neighbourhood and property features.</p>
     </div>
     """,

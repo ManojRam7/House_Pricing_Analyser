@@ -1,4 +1,4 @@
-"""Boston House Price Predictor package."""
+"""House Pricing Analyser package (Boston housing data)."""
 
 __all__ = [
     "config",

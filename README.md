@@ -1,4 +1,4 @@
-# Boston House Price Predictor
+# House Pricing Analyser
 
 Predicts the median value of a home (`MEDV`, in $1000s) from 13 neighbourhood and property features
 of the Boston housing dataset. The notebook covers the full analysis; the `src/` package turns the

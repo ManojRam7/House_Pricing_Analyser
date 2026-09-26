@@ -1,4 +1,4 @@
-# Model Card: Boston House Price Predictor
+# Model Card: House Pricing Analyser
 
 ## Summary
 
